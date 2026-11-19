@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 620" font-family="'Microsoft YaHei', 'PingFang SC', Arial, sans-serif">
+  <defs>
+    <linearGradient id="gGreen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22c55e"/><stop offset="1" stop-color="#16a34a"/></linearGradient>
+    <linearGradient id="gOrange" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f97316"/><stop offset="1" stop-color="#ea580c"/></linearGradient>
+    <linearGradient id="gPurple" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a855f7"/><stop offset="1" stop-color="#7c3aed"/></linearGradient>
+    <linearGradient id="gTeal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#42b883"/><stop offset="1" stop-color="#35495e"/></linearGradient>
+    <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#2563eb"/></linearGradient>
+    <marker id="arrGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#22c55e"/></marker>
+    <marker id="arrOrange" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#f97316"/></marker>
+    <marker id="arrPurple" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#a855f7"/></marker>
+    <style>
+      .fl-g { stroke-dasharray: 8 4; animation: dash .5s linear infinite; }
+      .fl-o { stroke-dasharray: 8 4; animation: dash .5s linear infinite; }
+      .fl-p { stroke-dasharray: 8 4; animation: dash .5s linear infinite; }
+      @keyframes dash { to { stroke-dashoffset: -12; } }
+      .card-t { font-size: 14px; font-weight: bold; fill: #ffffff; }
+      .card-s { font-size: 10.5px; fill: #64748b; }
+      .card-l { font-size: 11.5px; fill: #334155; }
+      .sec { font-size: 13px; font-weight: bold; fill: #475569; }
+    </style>
+  </defs>
+
+  <rect width="1220" height="620" fill="#ffffff"/>
+  <text x="610" y="34" text-anchor="middle" font-size="21" font-weight="bold" fill="#0f172a">hipda-nsh 架构 · Architecture</text>
+  <text x="610" y="54" text-anchor="middle" font-size="11" fill="#94a3b8">HiPDA 论坛非官方客户端 · NSH 0.5.1 + Rust · 依赖方向不可反转</text>
+
+  <!-- 主链路四卡 -->
+  <g transform="translate(30, 80)">
+    <rect width="250" height="170" rx="12" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+    <rect width="250" height="34" rx="12" fill="url(#gGreen)"/><rect y="22" width="250" height="12" fill="url(#gGreen)"/>
+    <text x="125" y="23" text-anchor="middle" class="card-t">4d4y.com · Discuz 7.2</text>
+    <text x="14" y="56" class="card-s">DATA SOURCE / 数据源</text>
+    <text x="14" y="78" class="card-l">· GBK HTML 页面，无 JSON API</text>
+    <text x="14" y="98" class="card-l">· 37 个端点 / 21 个版块</text>
+    <text x="14" y="118" class="card-l">· formhash / cookie 会话</text>
+    <text x="14" y="138" class="card-l">· 发帖、投票、私信写操作</text>
+  </g>
+  <g transform="translate(340, 80)">
+    <rect width="250" height="170" rx="12" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+    <rect width="250" height="34" rx="12" fill="url(#gOrange)"/><rect y="22" width="250" height="12" fill="url(#gOrange)"/>
+    <text x="125" y="23" text-anchor="middle" class="card-t">crates/forum-core</text>
+    <text x="14" y="56" class="card-s">KERNEL / 平台无关内核</text>
+    <text x="14" y="78" class="card-l">· Transport trait 注入网络</text>
+    <text x="14" y="98" class="card-l">· GBK/GB18030 编解码</text>
+    <text x="14" y="118" class="card-l">· HTML 解析 → 模型（Block 流）</text>
+    <text x="14" y="138" class="card-l">· MockTransport 全量测试</text>
+  </g>
+  <g transform="translate(650, 80)">
+    <rect width="250" height="170" rx="12" fill="#faf5ff" stroke="#a855f7" stroke-width="2"/>
+    <rect width="250" height="34" rx="12" fill="url(#gPurple)"/><rect y="22" width="250" height="12" fill="url(#gPurple)"/>
+    <text x="125" y="23" text-anchor="middle" class="card-t">src/transport.rs</text>
+    <text x="14" y="56" class="card-s">BRIDGE / 唯一平台桥</text>
+    <text x="14" y="78" class="card-l">· NSH fetch → HttpRequest</text>
+    <text x="14" y="98" class="card-l">· body: Vec&lt;u8&gt; 原样透传</text>
+    <text x="14" y="118" class="card-l">· 禁用 HttpResponse::text()</text>
+    <text x="14" y="138" class="card-l">· （UTF-8 lossy 毁 GBK）</text>
+  </g>
+  <g transform="translate(960, 80)">
+    <rect width="250" height="170" rx="12" fill="#f0fdf4" stroke="#42b883" stroke-width="2"/>
+    <rect width="250" height="34" rx="12" fill="url(#gTeal)"/><rect y="22" width="250" height="12" fill="url(#gTeal)"/>
+    <text x="125" y="23" text-anchor="middle" class="card-t">src/lib.rs · App</text>
+    <text x="14" y="56" class="card-s">VIEW / 根组件</text>
+    <text x="14" y="78" class="card-l">· signal 状态 + 视图映射</text>
+    <text x="14" y="98" class="card-l">· 业务判断全部下沉内核</text>
+    <text x="14" y="118" class="card-l">· Lo-PDA 四色 LCD 皮肤</text>
+    <text x="14" y="138" class="card-l">· 六端共享一套代码</text>
+  </g>
+
+  <!-- 主链路流线 -->
+  <path d="M280 165 L340 165" stroke="#dcfce7" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M280 165 L340 165" class="fl-g" stroke="#22c55e" stroke-width="3" fill="none" marker-end="url(#arrGreen)" stroke-linecap="round"/>
+  <path d="M590 165 L650 165" stroke="#ffedd5" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M590 165 L650 165" class="fl-o" stroke="#f97316" stroke-width="3" fill="none" marker-end="url(#arrOrange)" stroke-linecap="round"/>
+  <path d="M900 165 L960 165" stroke="#f3e8ff" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M900 165 L960 165" class="fl-p" stroke="#a855f7" stroke-width="3" fill="none" marker-end="url(#arrPurple)" stroke-linecap="round"/>
+  <text x="310" y="150" text-anchor="middle" font-size="10" fill="#16a34a">GBK</text>
+  <text x="620" y="150" text-anchor="middle" font-size="10" fill="#ea580c">请求/响应</text>
+  <text x="930" y="150" text-anchor="middle" font-size="10" fill="#7c3aed">模型</text>
+
+  <!-- 支撑层 -->
+  <text x="30" y="308" class="sec">支撑层 / SUPPORTING</text>
+  <g transform="translate(30, 322)">
+    <rect width="250" height="118" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="250" height="30" rx="12" fill="url(#gBlue)"/><rect y="18" width="250" height="12" fill="url(#gBlue)"/>
+    <text x="125" y="21" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">nsh.json</text>
+    <text x="14" y="50" class="card-l">· capabilities 能力声明</text>
+    <text x="14" y="70" class="card-l">· 未列出即拒绝（网络 hosts）</text>
+    <text x="14" y="90" class="card-l">· 外链图片域名白名单来源</text>
+  </g>
+  <g transform="translate(340, 322)">
+    <rect width="250" height="118" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="250" height="30" rx="12" fill="url(#gBlue)"/><rect y="18" width="250" height="12" fill="url(#gBlue)"/>
+    <text x="125" y="21" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">theme.json + 字体</text>
+    <text x="14" y="50" class="card-l">· 四色绿 LCD 设计令牌</text>
+    <text x="14" y="70" class="card-l">· DotGothic16 / VT323（OFL）</text>
+    <text x="14" y="90" class="card-l">· Root::tokens / Root::font 编入</text>
+  </g>
+  <g transform="translate(650, 322)">
+    <rect width="250" height="118" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="250" height="30" rx="12" fill="url(#gBlue)"/><rect y="18" width="250" height="12" fill="url(#gBlue)"/>
+    <text x="125" y="21" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">cache / session / settings</text>
+    <text x="14" y="50" class="card-l">· SWR 缓存 hipda.cache.v1</text>
+    <text x="14" y="70" class="card-l">· 会话快照（NSH Storage）</text>
+    <text x="14" y="90" class="card-l">· 设置 hipda.settings.v1</text>
+  </g>
+
+  <!-- 流程说明 -->
+  <g transform="translate(30, 478)">
+    <text y="0" class="sec">请求一次版块列表 / A REQUEST</text>
+    <text y="24" class="card-l">① lib.rs 发起 signal 状态变更 → ② transport.rs 翻译为 NSH HttpRequest</text>
+    <text y="44" class="card-l">→ ③ forum-core 构造 URL / GBK 参数并解析响应 → ④ 模型回流视图渲染；</text>
+    <text y="64" class="card-l">缓存层先画旧数据再后台刷新（stale-while-revalidate），白名单与置顶过滤共用一条路径。</text>
+  </g>
+
+  <!-- 图例 -->
+  <g transform="translate(940, 478)">
+    <text y="0" class="sec">图例 / LEGEND</text>
+    <rect x="0" y="12" width="14" height="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/><text x="22" y="21" class="card-l">数据源</text>
+    <rect x="0" y="32" width="14" height="10" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/><text x="22" y="41" class="card-l">业务内核</text>
+    <rect x="0" y="52" width="14" height="10" fill="#faf5ff" stroke="#a855f7" stroke-width="1.5"/><text x="22" y="61" class="card-l">平台桥</text>
+    <rect x="0" y="72" width="14" height="10" fill="#f0fdf4" stroke="#42b883" stroke-width="1.5"/><text x="22" y="81" class="card-l">视图层</text>
+    <rect x="90" y="12" width="14" height="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/><text x="112" y="21" class="card-l">配置/存储</text>
+    <line x1="90" y1="37" x2="110" y2="37" stroke="#a855f7" stroke-width="3" class="fl-p"/><text x="112" y="41" class="card-l">数据流</text>
+  </g>
+</svg>
