@@ -3505,13 +3505,83 @@ pub fn App() -> impl IntoElement {
 
     view()
         .flex_1()
-        .bg(move || theme().background)
+        // 石墨机身（Lo-PDA 的 .case）：整个窗口是一台掌机外壳，
+        // 绿色 LCD 是嵌进去的一块屏。
+        .bg(move || nsh_core::Color::rgba(0x26, 0x29, 0x25, 0xff))
         .text_color(move || theme().foreground)
         .child(
             view()
                 .flex_1()
                 .p_safe_area()
+                .px(px(12.0))
+                .py(px(10.0))
+                .gap(px(8.0))
+                // 机身铭牌行（Lo-PDA 的 .brand）：左上角机型名，右侧规格线。
                 .child(
+                    view()
+                        .flex_row()
+                        .items_baseline()
+                        .justify_between()
+                        .px(px(4.0))
+                        .child(
+                            text("HI-PDA")
+                                .font_family("VT323")
+                                .text_size(px(16.0))
+                                .letter_spacing(px(2.5))
+                                .text_color(move || {
+                                    nsh_core::element::AdaptiveColor::from(nsh_core::Color::rgba(
+                                        0xe4, 0xdd, 0xc9, 0xff,
+                                    ))
+                                }),
+                        )
+                        .child(
+                            text("MODEL NSH 0.5.1 · 4 TONE LCD")
+                                .font_family("VT323")
+                                .text_size(px(12.0))
+                                .letter_spacing(px(1.2))
+                                .text_color(move || {
+                                    nsh_core::element::AdaptiveColor::from(nsh_core::Color::rgba(
+                                        0x8d, 0x92, 0x83, 0xff,
+                                    ))
+                                }),
+                        ),
+                )
+                // 嵌入式 LCD（Lo-PDA 的 .screen）：6pt 墨黑边框 + 两层内阴影，
+                // 屏幕本体 8pt 圆角，内容裁进圆角。
+                .child(
+                    view()
+                        .flex_1()
+                        .rounded(px(8.0))
+                        .border(px(6.0))
+                        .border_color(move || {
+                            nsh_core::element::AdaptiveColor::from(nsh_core::Color::rgba(
+                                0x11, 0x13, 0x0f, 0xff,
+                            ))
+                        })
+                        .shadow([
+                            BoxShadow {
+                                offset_x: px(0.0),
+                                offset_y: px(0.0),
+                                blur: px(0.0),
+                                spread: px(2.0),
+                                color: nsh_core::Color::rgba(0x7d, 0x8a, 0x58, 0xff),
+                                inset: true,
+                            },
+                            BoxShadow {
+                                offset_x: px(0.0),
+                                offset_y: px(6.0),
+                                blur: px(18.0),
+                                spread: px(0.0),
+                                color: nsh_core::Color::rgba(0x1f, 0x2a, 0x14, 0x59),
+                                inset: true,
+                            },
+                        ])
+                        .bg(move || theme().background)
+                        .overflow_hidden()
+                        .child(
+                            view()
+                                .flex_1()
+                                .child(
                     view()
                         .flex_row()
                         .items_center()
@@ -3604,7 +3674,9 @@ pub fn App() -> impl IntoElement {
                         })
                         .text_size(px(11.0))
                         .text_color(move || theme().muted_foreground)),
-                ),
+                                ),
+                        )
+                )
         )
 }
 // ---------------------------------------------------------------- 我的空间 / 资料 / 黑名单 / 私信 / 表情 / 投票
