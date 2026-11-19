@@ -3506,8 +3506,9 @@ pub fn App() -> impl IntoElement {
     view()
         .flex_1()
         // 石墨机身（Lo-PDA 的 .case）：整个窗口是一台掌机外壳，
-        // 绿色 LCD 是嵌进去的一块屏。
+        // 绿色 LCD 是嵌进去的一块屏。无边框窗口靠它拖动。
         .bg(move || nsh_core::Color::rgba(0x26, 0x29, 0x25, 0xff))
+        .window_drag(true)
         .text_color(move || theme().foreground)
         .child(
             view()
@@ -3523,6 +3524,7 @@ pub fn App() -> impl IntoElement {
                         .items_baseline()
                         .justify_between()
                         .px(px(4.0))
+                        .window_drag(true)
                         .child(
                             text("HI-PDA")
                                 .font_family("VT323")

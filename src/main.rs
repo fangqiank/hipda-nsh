@@ -30,7 +30,12 @@ fn main() -> impl std::process::Termination {
             title: "HiPDA·nsh 版".to_owned(),
             #[cfg(any(target_os = "linux", target_os = "windows"))]
             app_id: "cn.hipda.nsh.unofficial".to_owned(),
-            size: (900, 680),
+            // Palm 掌上电脑比例的竖屏小窗：3 列瓷砖网格（3×96+间距）放下后
+            // 右侧还有约 20pt 余量给滚动条与「N 个版块」计数。
+            size: (400, 560),
+            // 去掉系统窗框（标题栏/边框/阴影）：机身即窗口，
+            // 拖动由根视图的 window_drag 承担，关闭走任务栏 / Alt+F4。
+            transparent: true,
             ..Default::default()
         },
     )
