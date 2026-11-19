@@ -3502,6 +3502,7 @@ pub fn App() -> impl IntoElement {
     let for_header = ui.clone();
     let for_body = ui.clone();
     let for_footer = ui.clone();
+    let for_home = ui.clone();
 
     view()
         .flex_1()
@@ -3679,7 +3680,75 @@ pub fn App() -> impl IntoElement {
                                 ),
                         )
                 )
+                // 机身下巴（Lo-PDA 的 .keys）：左格栅 · HOME 红胶囊键 · 右格栅。
+                .child(device_chin(for_home))
         )
+}
+
+/// 扬声器格栅（Lo-PDA 的 .grille）：6×3 点阵，深孔色。
+fn speaker_grille() -> impl IntoElement {
+    let dots = (0..6).map(|_| {
+        view()
+            .w(px(6.0))
+            .h(px(6.0))
+            .rounded(px(3.0))
+            .bg(nsh_core::Color::rgba(0x11, 0x13, 0x0f, 0xff))
+            .into_element()
+    });
+    view().gap(px(5.0)).children((0..3).map(|_| {
+        view().flex_row().gap(px(5.0)).children(dots.clone())
+    }))
+}
+
+/// 机身底部的 HOME 键行：红色胶囊（按下回首页）夹在两片格栅之间。
+fn device_chin(ui: Ui) -> impl IntoElement {
+    view()
+        .flex_row()
+        .items_center()
+        .justify_between()
+        .px(px(8.0))
+        .pt(px(8.0))
+        .child(speaker_grille())
+        .child(
+            view()
+                .px(px(26.0))
+                .py(px(7.0))
+                .rounded(px(999.0))
+                .bg(nsh_core::Color::rgba(0xb7, 0x43, 0x2e, 0xff))
+                // Lo-PDA 的 .home-key：底部 3pt 硬投影 + 顶部 1pt 内高光。
+                .shadow([
+                    BoxShadow {
+                        offset_x: px(0.0),
+                        offset_y: px(3.0),
+                        blur: px(0.0),
+                        spread: px(0.0),
+                        color: nsh_core::Color::rgba(0x6e, 0x22, 0x16, 0xff),
+                        inset: false,
+                    },
+                    BoxShadow {
+                        offset_x: px(0.0),
+                        offset_y: px(1.0),
+                        blur: px(0.0),
+                        spread: px(0.0),
+                        color: nsh_core::Color::rgba(0xff, 0xff, 0xff, 0x40),
+                        inset: true,
+                    },
+                ])
+                .active(|s| s.opacity(0.8))
+                .on_press(move || ui.clone().screen.set(Screen::Index))
+                .child(
+                    text("HOME")
+                        .font_family("VT323")
+                        .text_size(px(15.0))
+                        .letter_spacing(px(3.0))
+                        .text_color(move || {
+                            nsh_core::element::AdaptiveColor::from(nsh_core::Color::rgba(
+                                0xf1, 0xe6, 0xd8, 0xff,
+                            ))
+                        }),
+                ),
+        )
+        .child(speaker_grille())
 }
 // ---------------------------------------------------------------- 我的空间 / 资料 / 黑名单 / 私信 / 表情 / 投票
 
