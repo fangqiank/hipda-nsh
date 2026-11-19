@@ -27,7 +27,8 @@ if [ ! -x "$NSIS" ]; then
 fi
 
 # 版本号只在 nsh.json 里维护一份，图标/安装器都跟着它走
-VERSION=$(python -c "import json,sys; print(json.load(open(sys.argv[1]))['version'])" nsh.json)
+# （Windows 的 python 默认按 ANSI/GBK 读文件，nsh.json 里的 UTF-8 中文会炸，必须显式指定编码）
+VERSION=$(python -c "import json,sys; print(json.load(open(sys.argv[1], encoding='utf-8'))['version'])" nsh.json)
 echo "==> 版本 $VERSION"
 
 if [ "${SKIP_BUILD:-0}" != "1" ]; then
